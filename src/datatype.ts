@@ -1,6 +1,6 @@
 import type { DataType } from "./type";
 
-export function dataTypeChecker(data: any, types: DataType | DataType[]) {
+export function dataTypeChecker(data: any, types: DataType | DataType[]): boolean {
     let potentialTypes = [];
 
     if (Array.isArray(types)) potentialTypes = types;
