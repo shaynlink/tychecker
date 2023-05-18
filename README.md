@@ -57,11 +57,13 @@ console.log(validator(str)); // true
 
 ### `stringValidator(config)`
 
-**Parameter** config [`StringValidatorConfig`](#StringValidatorConfig) |
-Properties | Type | Required | Description |
-|-----------|--------|----------|---------------| | equLength | Number | | exact
-string length | | minLength | Number | | minimum string length | | maxLength |
-Number | | maximum string length | | regex | Regex | | Applying regex test |
+**Parameter** config [`StringValidatorConfig`](#StringValidatorConfig)
+| Properties | Type   | Required | Description    |
+|------------|--------|----------|----------------|
+| equLength  | Number |  | exact string length    |
+| minLength  | Number |  | minimum string length  |
+| maxLength  | Number |  | maximum string length  |
+| regex      | Regex  |  | Applying regex test    |
 
 **Return** [`StringValidatorFn`](#StringValidatorFn)
 
@@ -73,14 +75,14 @@ validator(str);
 
 ### `objectValidator(config)`
 
-**Parameters** config [`ObjectValidatorConfig`](#ObjectValidatorConfig) |
-Properties | Type | Required | Description |
-|------------------|---------|----------|----------------| | allowEmptyObject |
-Boolean | | allow empty object | | minLength | Number | | minimum keys count | |
-maxLength | Number | | maximum keys count | | equLength | Number | | exact keys
-count | | entries | [`EntryObjectInstance`](#EntryObjectInstance)[] \|
-[`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) | | Target one key
-of object for testing data type |
+**Parameters** config [`ObjectValidatorConfig`](#ObjectValidatorConfig)
+| Properties       | Type                                                                                                           | Required | Description                            |
+|------------------|----------------------------------------------------------------------------------------------------------------|----------|----------------------------------------|
+| allowEmptyObject | Boolean                                                                                                        |  | allow empty object                             |
+| minLength        | Number                                                                                                         |  | minimum keys count                             |
+| maxLength        | Number                                                                                                         |  | maximum keys count                             |
+| equLength        | Number                                                                                                         |  | exact keys count                               |
+| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) |  | Target one key of object for testing data type |
 
 **Return** [`ObjectValidatorFn`](#ObjectValidatorFn)
 
@@ -100,15 +102,15 @@ const result = validator(obj);
 ### `entryObjectValidator(config)`
 
 **Parameter** config [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig)
-| Propertiesd | Type | Required | Description |
-|------------------|-------------------------------|----------|------------------------------|
-| key | String \| Number \| Symbol | yes | Target one key of object | | Required
-| Boolean | | If key is required on object | | dataType |
-[`DataType`](#DataType) \| [`DataType`](#DataType)[] | | Check target value type
-| | validator | [`ValidatorFn`](#ValidatorFn) | | Apply Validator function | |
-validators | [`ValidatorFn`](#EntryObjectInstance)[] | | Apply each Validator
-function, process pass when once Validator return true | **Return**
-[`EntryObjectInstance`](#EntryObjectInstance)
+| Properties | Type                                                 | Required | Description                                                         |
+|------------|------------------------------------------------------|----------|---------------------------------------------------------------------|
+| key        | String \| Number \| Symbol                           | yes      | Target one key of object                                            |
+| Required   | Boolean                                              |  | If key is required on object                                                |
+| dataType   | [`DataType`](#DataType) \| [`DataType`](#DataType)[] |  | Check target value type                                                     |
+| validator  | [`ValidatorFn`](#ValidatorFn)                        |  | Apply Validator function                                                    |
+| validators | [`ValidatorFn`](#EntryObjectInstance)[]              |  | Apply each Validator function, process pass when once Validator return true |
+
+**Return** [`EntryObjectInstance`](#EntryObjectInstance)
 
 ```js
 const obj = { name: "bob", age: 24 };
@@ -178,31 +180,33 @@ stringValidator({
 
 ### `ObjectValidatorConfig`
 
-**Type** [Object] | properties | Type | Required | Description |
-|------------------|---------|----------|----------------| | allowEmptyObject |
-Boolean | | allow empty object | | minLength | Number | | minimum keys count | |
-maxLength | Number | | maximum keys count | | equLength | Number | | exact keys
-count | | entries | [`EntryObjectInstance`](#EntryObjectInstance)[] \|
-[`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) | | Target one key
-of object for testing data type |
+**Type** [Object]
+| properties       | Type                                                                                                           | Required | Description                            |
+|------------------|----------------------------------------------------------------------------------------------------------------|----------|----------------------------------------|
+| allowEmptyObject | Boolean                                                                                                        |  | allow empty object                             |
+| minLength        | Number                                                                                                         |  | minimum keys count                             |
+| maxLength        | Number                                                                                                         |  | maximum keys count                             |
+| equLength        | Number                                                                                                         |  | exact keys count                               |
+| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) |  | Target one key of object for testing data type |
 
 ### `EntryObjectValidatorConfig`
 
-**Type** [Object] | Property | Type | Required | Description |
-|------------------|-------------------------------|----------|------------------------------|
-| key | String \| Number \| Symbol | yes | Target one key of object | | Required
-| Boolean | | If key is required on object | | dataType |
-[`DataType`](#DataType) \| [`DataType`](#DataType)[] | | Check target value type
-| | validator | [`ValidatorFn`](#ValidatorFn) | | Apply Validator function | |
-validators | [`ValidatorFn`](#EntryObjectInstance)[] | | Apply each Validator
-function, process pass when once Validator return true |
+**Type** [Object]
+| Property   | Type                                                 | Required | Description                                                         |
+|------------|------------------------------------------------------|----------|---------------------------------------------------------------------|
+| key        | String \| Number \| Symbol                           | yes      | Target one key of object                                            |
+| Required   | Boolean                                              |  | If key is required on object                                                |
+| dataType   | [`DataType`](#DataType) \| [`DataType`](#DataType)[] |  | Check target value type                                                     |
+| validator  | [`ValidatorFn`](#ValidatorFn)                        |  | Apply Validator function                                                    |
+| validators | [`ValidatorFn`](#EntryObjectInstance)[]              |  | Apply each Validator function, process pass when once Validator return true |
 
 ### `EntryObjectInstance`
 
-**type** [Object] | Property | Type | Required | readonly | Description |
-|-------------|----------|----------|----------|-------------| | _tyInstance |
-Boolean | yes | yes | Object created by `entryObjectValidator` function | |
-validator | Function | yes | yes | Apply Validator function on target value |
+**type** [Object]
+| Property    | Type     | Required | readonly | Description                                       |
+|-------------|----------|----------|----------|---------------------------------------------------|
+| _tyInstance | Boolean  | yes      | yes      | Object created by `entryObjectValidator` function |
+| validator   | Function | yes      | yes      | Apply Validator function on target value          |
 
 ### `StringValidatorConfig`
 
