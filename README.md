@@ -1,14 +1,23 @@
 # tycheck - a type checker
 
-⚠️ tycheck is still in development, originally created for shortlnk project, it evolve for the moment at the same time as shortlnk.
-But its development is to think for a general use and integrable by other projects.
+> ⚠️ tycheck is still in development, originally created for shortlnk project, it evolve for the moment at the same time as shortlnk.
+> But its development is to think for a general use and integrable by other projects.
 
-todo adding multiple key target on EntryObject
+# Features
+- [x] String Validator Function
+- [x] Object Validator Function
+    - [x] Object Entry Validator Function
+    - [ ] Object Entry Validator for multiple keys
+- [ ] Number Validator Function
+- [ ] Date Validator Function
+- [ ] Array Validator Function
+    - [ ] Object Entry Validator Function
+- [ ] Pipeline System
 
 # Installation guide
 
 ```bash
-@todo put here installation method
+npm install tycheck
 ```
 
 # Documentation
@@ -42,7 +51,7 @@ console.log(validator(str)); // true
 ### Functions
 
 ### `stringValidator(config)`
-**Parameter** config [`StringValidatorConfig`](#)
+**Parameter** config [`StringValidatorConfig`](#StringValidatorConfig)
 | key       | type   | required | description   |
 |-----------|--------|----------|---------------|
 | equLength | Number |  | exact string length   |
