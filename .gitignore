@@ -1,0 +1,5 @@
+# Destination build directory
+/dist
+
+# Modules directory
+/node_modules
