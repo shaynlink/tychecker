@@ -19,7 +19,7 @@
 # Installation guide
 
 ```bash
-npm install tycheck
+npm install tychecker
 ```
 
 # Documentation
@@ -29,13 +29,13 @@ npm install tycheck
 import on CommonJS
 
 ```js
-const { stringValidator } = require("tycheck");
+const { stringValidator } = require("tychecker");
 ```
 
 import on EcmaScript
 
 ```js
-import { stringValidator } from "tycheck";
+import { stringValidator } from "tychecker";
 ```
 
 simple example
@@ -224,7 +224,7 @@ stringValidator({
 ### Multiple type Object validator
 
 ```js
-const { objectValidatorn entryObjectValidator } = require('tycheck');
+const { objectValidatorn entryObjectValidator } = require('tychecker');
 
 const obj = (i) => ({
     foo: ['bar', 1, {}][i]
@@ -247,9 +247,7 @@ validator(obj(2)); // false
 ### Deep data type Validator
 
 ```js
-const { objectValidator, entryObjectValidator, stringValidator } = require(
-  "tycheck",
-);
+const { objectValidator, entryObjectValidator, stringValidator } = require("tychecker");
 
 const obj = {
   foo: "bar",
@@ -273,7 +271,7 @@ validator(obj); // true
 ### Deep Object Validator
 
 ```js
-const { objectValidator, entryObjectValidator } = require("tycheck");
+const { objectValidator, entryObjectValidator } = require("tychecker");
 
 const deepObject = {
   result: {
@@ -303,7 +301,7 @@ validator(deepObject); // true
 ### Use Object instead of `entryObjectValidator` function
 
 ```js
-const { objectValidator } = require("tycheck");
+const { objectValidator } = require("tychecker");
 
 const obj = {
   foo: "bar",
