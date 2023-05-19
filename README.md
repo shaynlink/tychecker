@@ -1,4 +1,4 @@
-# tycheck - a type checker
+# tychecker - a type checker
 
 > ⚠️ tycheck is still in development, originally created for shortlnk project, it
 > evolve for the moment at the same time as shortlnk. But its development is to

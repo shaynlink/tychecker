@@ -1,5 +1,5 @@
 {
-  "name": "tycheck",
+  "name": "tychecker",
   "version": "0.1.0",
   "description": "Check data type",
   "main": "dist/index.js",
