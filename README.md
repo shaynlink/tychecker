@@ -13,8 +13,9 @@
 - [ ] Number Validator Function
 - [ ] Date Validator Function
 - [ ] Array Validator Function
-  - [ ] Object Entry Validator Function
+  - [ ] Array Entry Validator Function
 - [ ] Pipeline System
+- [ ] Middleware Server Handler System
 
 # Installation guide
 
@@ -82,7 +83,7 @@ validator(str);
 | minLength        | Number                                                                                                         |  | minimum keys count                             |
 | maxLength        | Number                                                                                                         |  | maximum keys count                             |
 | equLength        | Number                                                                                                         |  | exact keys count                               |
-| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) |  | Target one key of object for testing data type |
+| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig)[] |  | Target one key of object for testing data type |
 
 **Return** [`ObjectValidatorFn`](#ObjectValidatorFn)
 
