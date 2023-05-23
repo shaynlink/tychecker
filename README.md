@@ -16,7 +16,7 @@
 - [ ] Array Validator Function
   - [ ] Array Entry Validator Function
 - [ ] Pipeline System
-- ~~[ ] Middleware Server Handler System~~ 
+  - ~~[ ] Middleware Server Handler System~~ 
 - [ ] Map Validator Function
 - [ ] Set Validator Function
 - [ ] Use Error Callack System instead of return Boolean
