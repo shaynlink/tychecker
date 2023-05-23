@@ -8,8 +8,8 @@
     "/dist"
   ],
   "scripts": {
-    "test": "jest --verbose",
-    "build": "tsc"
+    "test": "./node_modules/.bin/jest --verbose",
+    "build": "./node_modules/.bin/tsc"
   },
   "author": "shaynlink (github.com/shaynlink)",
   "license": "MIT",
