@@ -10,11 +10,17 @@
 - [x] Object Validator Function
   - [x] Object Entry Validator Function
   - [ ] Object Entry Validator for multiple keys
-- [ ] Number Validator Function
+- [x] Number Validator Function
+  - [x] Number Validator Function support Big Int
 - [ ] Date Validator Function
 - [ ] Array Validator Function
-  - [ ] Object Entry Validator Function
+  - [ ] Array Entry Validator Function
 - [ ] Pipeline System
+- ~~[ ] Middleware Server Handler System~~ 
+- [ ] Map Validator Function
+- [ ] Set Validator Function
+- [ ] Use Error Callack System instead of return Boolean
+- [ ] Transform Data into a Valid Data Type expected instead of Boolean
 
 # Installation guide
 
@@ -82,7 +88,7 @@ validator(str);
 | minLength        | Number                                                                                                         |  | minimum keys count                             |
 | maxLength        | Number                                                                                                         |  | maximum keys count                             |
 | equLength        | Number                                                                                                         |  | exact keys count                               |
-| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig) |  | Target one key of object for testing data type |
+| entries          | [`EntryObjectInstance`](#EntryObjectInstance)[] \| [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig)[] |  | Target one key of object for testing data type |
 
 **Return** [`ObjectValidatorFn`](#ObjectValidatorFn)
 
@@ -138,6 +144,24 @@ const str = "Hello World!";
 dataTypeChecker(str, "string");
 ```
 
+### `numberValidatorFunction(config)`
+
+**Parameter** config [`NumberValidatorConfig`](#NumberValidatorConfig)
+| Properties         | Type                 | Required | Description                                                      |
+|--------------------|----------------------|----------|------------------------------------------------------------------|
+| equAt              | Number \| BigInt     |  | Equal at entry number\|bigint                                            |
+| minAt              | Number \| BigInt     |  | Minimum at entry number\|bigint                                          |
+| maxAt              | Number \| BigInt     |  | Maximum at entry number\|bigint                                          |
+| transformStringTo  | 'number' \| 'bigint' |  | Transform entry string to number or bigint before apply validation tests |
+| allowBigInt        | Boolean              |  | Allow BigInt type on entry                                               |
+| mustBeBigInt       | Boolean              |  | Entry must be a BigInt                                                   |
+| allowFloat         | Boolean              |  | Allow Float on entry                                                     |
+| allowInfinite      | Boolean              |  | Allow Infinite on entry                                                  |
+| allowNoSafeInteger | Boolean              |  | Allow No Safe Integer on entry                                           |
+| allowNegatifAmout  | Boolean              |  | Allow Negatif Amount on entry                                            |
+
+**Return** [`NumberValidatorFn`](#NumberValidatorFn)
+
 ## Objects
 
 ### `regex`
@@ -173,10 +197,14 @@ stringValidator({
 
 **Type** [Function] - `(obj: any) => boolean`
 
+### `NumberValidatorFn`
+
+**Type** [Function] - `(num: string | number | bigint) => boolean`
+
 ### `ValidatorFn`
 
 **Type** [Function] - [`StringValidatorFn`](#StringValidatorConfig) |
-[`ObjectValidatorConfig`](#ObjectValidatorConfig)
+[`ObjectValidatorConfig`](#ObjectValidatorConfig) | [`NumberValidatorFn`](#NumberValidatorFn)
 
 ### `ObjectValidatorConfig`
 
@@ -218,6 +246,23 @@ stringValidator({
 | minLength | Number |          | Minimum string length             |
 | maxLength | Number |          | Maximum string length             |
 | regex     | Regex  |          | Apply Regex test method on string |
+
+### `NumberValidatorConfig`
+
+**type** [Object]
+
+| Properties         | Type                 | Required | Description                                                      |
+|--------------------|----------------------|----------|------------------------------------------------------------------|
+| equAt              | Number \| BigInt     |  | Equal at entry number\|bigint                                            |
+| minAt              | Number \| BigInt     |  | Minimum at entry number\|bigint                                          |
+| maxAt              | Number \| BigInt     |  | Maximum at entry number\|bigint                                          |
+| transformStringTo  | 'number' \| 'bigint' |  | Transform entry string to number or bigint before apply validation tests |
+| allowBigInt        | Boolean              |  | Allow BigInt type on entry                                               |
+| mustBeBigInt       | Boolean              |  | Entry must be a BigInt                                                   |
+| allowFloat         | Boolean              |  | Allow Float on entry                                                     |
+| allowInfinite      | Boolean              |  | Allow Infinite on entry                                                  |
+| allowNoSafeInteger | Boolean              |  | Allow No Safe Integer on entry                                           |
+| allowNegatifAmout  | Boolean              |  | Allow Negatif Amount on entry                                            |
 
 ## Example
 
