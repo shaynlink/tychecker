@@ -3,6 +3,7 @@ import {
     objectValidator,
     entryObjectValidator
 } from '../src';
+import { numberValidator } from '../src/validators/number';
 
 describe('String validator', () => {
     const str = 'Hello world!';
@@ -208,4 +209,158 @@ describe('Entries of Object validator', () => {
         
         expect(validator(obj)).toBeFalsy();
     });
+})
+
+describe('number validator', () => {
+    const num = 10;
+
+    it('Transform String To Number', () => {
+        const validator = numberValidator({
+            transformStringTo: 'number'
+        });
+
+        expect(validator('1')).toBeTruthy();
+    });
+
+    it('Transform String To Big Int', () => {
+        const validator = numberValidator({
+            transformStringTo: 'bigint'
+        });
+
+        expect(validator('1n')).toBeTruthy();
+    });
+
+    it('Integer Equal At Pass', () => {
+        const validator = numberValidator({
+            equAt: num
+        });
+
+        expect(validator(num)).toBeTruthy();
+    });
+
+    it('Integer Equal At Fail', () => {
+        const validator = numberValidator({
+            equAt: num + 1
+        });
+
+        expect(validator(num)).toBeFalsy();
+    });
+
+    it('Big Int Equal At Pass', () => {
+        const validator = numberValidator({
+            equAt: BigInt(10)
+        });
+
+        expect(validator(BigInt(10))).toBeTruthy();
+    });
+
+    it('Big Int Equal At Fail', () => {
+        const validator = numberValidator({
+            equAt: BigInt(10)
+        });
+
+        expect(validator(BigInt(11))).toBeFalsy();
+    });
+
+    it('Integer Minimum At Pass', () => {
+        const validator = numberValidator({
+            minAt: num
+        });
+
+        expect(validator(num)).toBeTruthy();
+    });
+
+    it('Integer Minimum At Fail', () => {
+        const validator = numberValidator({
+            minAt: num + 1
+        });
+
+        expect(validator(num)).toBeFalsy();
+    });
+
+    it('Big Int Minimum At Pass', () => {
+        const validator = numberValidator({
+            minAt: BigInt(10)
+        });
+
+        expect(validator(BigInt(10))).toBeTruthy();
+    });
+
+    it('Big Int Minimum At Fail', () => {
+        const validator = numberValidator({
+            minAt: BigInt(10)
+        });
+
+        expect(validator(BigInt(9))).toBeFalsy();
+    });
+
+    it('Maximum At Pass', () => {
+        const validator = numberValidator({
+            maxAt: BigInt(10)
+        });
+
+        expect(validator(BigInt(10))).toBeTruthy();
+    });
+
+    it('Maximum At Fail', () => {
+        const validator = numberValidator({
+            maxAt: BigInt(9)
+        });
+
+        expect(validator(BigInt(10))).toBeFalsy();
+    });
+
+    it('Allow Float Pass', () => {
+        const validator = numberValidator({
+            allowFloat: true
+        });
+
+        expect(validator(1.2)).toBeTruthy();
+    });
+
+    it('Allow Float Fail', () => {
+        const validator = numberValidator({
+            allowFloat: false
+        });
+        
+        expect(validator(1.2)).toBeFalsy();
+    });
+
+    it('Allow Infinite Pass', () => {
+        const validator = numberValidator({
+            allowInfinite: true
+        });
+
+        expect(validator(Number.POSITIVE_INFINITY)).toBeTruthy();
+        expect(validator(Number.NEGATIVE_INFINITY)).toBeTruthy();
+    });
+
+    it('Allow Infinite Fail', () => {
+        const validator = numberValidator({
+            allowInfinite: false
+        });
+        
+        expect(validator(Number.POSITIVE_INFINITY)).toBeFalsy();
+        expect(validator(Number.NEGATIVE_INFINITY)).toBeFalsy();
+    });
+
+    it('Allow Safe Integer Pass', () => {
+        const validator = numberValidator({
+            allowNoSafeInteger: true
+        });
+
+        expect(validator(Number.MAX_SAFE_INTEGER + 1)).toBeTruthy();
+        expect(validator(Number.MIN_SAFE_INTEGER - 1)).toBeTruthy();
+    });
+
+    it('Allow Safe Integer Fail', () => {
+        const validator = numberValidator({
+            allowNoSafeInteger: false
+        });
+        
+        expect(validator(Number.MAX_SAFE_INTEGER + 1)).toBeFalsy();
+        expect(validator(Number.MIN_SAFE_INTEGER - 1)).toBeFalsy();
+    });
+
+
 })

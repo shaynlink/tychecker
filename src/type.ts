@@ -3,8 +3,9 @@ export type DataType = 'string' | 'number' | 'array' | 'object' | 'bigint' | 'fu
 export type StringValidatorFn = (str: string) => boolean;
 export type ObjectValidatorFn = (obj: any) => boolean;
 export type EntryObjectInstanceValidatorFn = (object: any) => boolean;
+export type NumberValidatorFn = (num: string | number | bigint) => boolean;
 
-export type ValidatorFn = StringValidatorFn | ObjectValidatorConfig;
+export type ValidatorFn = StringValidatorFn | ObjectValidatorConfig | NumberValidatorFn;
 
 export interface ObjectValidatorConfig {
     allowEmptyObject?: boolean;
@@ -32,4 +33,17 @@ export interface StringValidatorConfig {
     minLength?: number;
     maxLength?: number;
     regex?: RegExp;
+}
+
+export interface NumberValidatorConfig {
+    equAt?: number | bigint;
+    minAt?: number | bigint;
+    maxAt?: number | bigint;
+    transformStringTo?: 'number' | 'bigint';
+    allowBigInt?: boolean;
+    mustBeBigInt?: boolean;
+    allowFloat?: boolean;
+    allowInfinite?: boolean;
+    allowNoSafeInteger?: boolean;
+    allowNegatifAmout?: boolean;
 }
