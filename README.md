@@ -12,7 +12,7 @@
   - [ ] Object Entry Validator for multiple keys
 - [x] Number Validator Function
   - [x] Number Validator Function support Big Int
-- [ ] Date Validator Function
+- [x] Date Validator Function
 - [ ] Array Validator Function
   - [ ] Array Entry Validator Function
 - [ ] Pipeline System
@@ -162,6 +162,18 @@ dataTypeChecker(str, "string");
 
 **Return** [`NumberValidatorFn`](#NumberValidatorFn)
 
+### `dateValidatorFunction(config)`
+
+**Parameter** config [`DateValidatorConfig`](#DateValidatorConfig)
+| Properties         | Type                 | Required | Description     |
+|--------------------|----------------------|----------|-----------------|
+| transformDate      | Boolean              |  | transform entry to Date |
+| equAt              | Date \| Number       |  | Equal to date           |
+| minAt              | Date \| Number       |  | Minimum to date         |
+| maxAt              | Date \| Number       |  | Maximum to date         |
+
+**Return** [`DateValidatorFn`](#DateValidatorFn)
+
 ## Objects
 
 ### `regex`
@@ -201,10 +213,14 @@ stringValidator({
 
 **Type** [Function] - `(num: string | number | bigint) => boolean`
 
+### `DateValidatorFn`
+
+**Type** [Function] - `(date: Date | number | string) => boolean`
+
 ### `ValidatorFn`
 
 **Type** [Function] - [`StringValidatorFn`](#StringValidatorConfig) |
-[`ObjectValidatorConfig`](#ObjectValidatorConfig) | [`NumberValidatorFn`](#NumberValidatorFn)
+[`ObjectValidatorConfig`](#ObjectValidatorConfig) | [`NumberValidatorFn`](#NumberValidatorFn) | [`DateValidatorFn`](#DateValidatorFn)
 
 ### `ObjectValidatorConfig`
 
@@ -263,6 +279,17 @@ stringValidator({
 | allowInfinite      | Boolean              |  | Allow Infinite on entry                                                  |
 | allowNoSafeInteger | Boolean              |  | Allow No Safe Integer on entry                                           |
 | allowNegatifAmout  | Boolean              |  | Allow Negatif Amount on entry                                            |
+
+### `DateValidatorConfig`
+
+**type** [Object]
+
+| Properties         | Type                 | Required | Description     |
+|--------------------|----------------------|----------|-----------------|
+| transformDate      | Boolean              |  | transform entry to Date |
+| equAt              | Date \| Number       |  | Equal to date           |
+| minAt              | Date \| Number       |  | Minimum to date         |
+| maxAt              | Date \| Number       |  | Maximum to date         |
 
 ## Example
 

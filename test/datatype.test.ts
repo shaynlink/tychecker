@@ -3,6 +3,7 @@ import {
     objectValidator,
     entryObjectValidator
 } from '../src';
+import { dateValidator } from '../src/validators/date';
 import { numberValidator } from '../src/validators/number';
 
 describe('String validator', () => {
@@ -364,3 +365,103 @@ describe('number validator', () => {
 
 
 })
+
+describe('Date validator', () => {
+    const date = new Date('May 23, 2023, 12:30:30');
+
+    it('Equal At Date Pass', () => {
+        const validator = dateValidator({
+            equAt: date
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Equal At Date Fail', () => {
+        const validator = dateValidator({
+            equAt: new Date('May 24, 2023, 12:30:30')
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+
+    it('Equal At Number Pass', () => {
+        const validator = dateValidator({
+            equAt: date.getTime()
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Equal At Number Fail', () => {
+        const validator = dateValidator({
+            equAt: new Date('May 24, 2023, 12:30:30').getTime()
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+
+    it('Minimum At Date Pass', () => {
+        const validator = dateValidator({
+            minAt: date
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Minimum At Date Fail', () => {
+        const validator = dateValidator({
+            minAt: new Date('May 24, 2023, 12:30:30')
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+
+    it('Minimum At Number Pass', () => {
+        const validator = dateValidator({
+            minAt: date.getTime()
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Minimum At Number Fail', () => {
+        const validator = dateValidator({
+            minAt: new Date('May 24, 2023, 12:30:30').getTime()
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+
+    it('Maximum At Date Pass', () => {
+        const validator = dateValidator({
+            maxAt: date
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Maximum At Date Fail', () => {
+        const validator = dateValidator({
+            maxAt: new Date('May 22, 2023, 12:30:30')
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+
+    it('Maximum At Number Pass', () => {
+        const validator = dateValidator({
+            maxAt: date.getTime()
+        });
+
+        expect(validator(date)).toBeTruthy();
+    });
+
+    it('Maximum At Number Fail', () => {
+        const validator = dateValidator({
+            maxAt: new Date('May 22, 2023, 12:30:30').getTime()
+        });
+
+        expect(validator(date)).toBeFalsy();
+    });
+})  
