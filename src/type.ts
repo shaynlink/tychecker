@@ -4,8 +4,9 @@ export type StringValidatorFn = (str: string) => boolean;
 export type ObjectValidatorFn = (obj: any) => boolean;
 export type EntryObjectInstanceValidatorFn = (object: any) => boolean;
 export type NumberValidatorFn = (num: string | number | bigint) => boolean;
+export type DateValidatorFn = (date: string | number | Date) => boolean;
 
-export type ValidatorFn = StringValidatorFn | ObjectValidatorConfig | NumberValidatorFn;
+export type ValidatorFn = StringValidatorFn | ObjectValidatorConfig | NumberValidatorFn | DateValidatorFn;
 
 export interface ObjectValidatorConfig {
     allowEmptyObject?: boolean;
@@ -46,4 +47,11 @@ export interface NumberValidatorConfig {
     allowInfinite?: boolean;
     allowNoSafeInteger?: boolean;
     allowNegatifAmout?: boolean;
+}
+
+export interface DateValidatorConfig {
+    transformToDate?: boolean;
+    equAt?: Date | number;
+    minAt?: Date | number;
+    maxAt?: Date | number;
 }
