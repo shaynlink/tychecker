@@ -9,7 +9,7 @@
     "/lib"
   ],
   "scripts": {
-    "postinstall": "node ./lib/postinstall.js",
+    "prepare": "node ./lib/postinstall.js",
     "test": "./node_modules/.bin/jest --verbose",
     "build": "./node_modules/.bin/tsc"
   },
