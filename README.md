@@ -9,18 +9,20 @@
 - [x] String Validator Function
 - [x] Object Validator Function
   - [x] Object Entry Validator Function
-  - [ ] Object Entry Validator for multiple keys
+  - [x] Object Entry Validator for multiple keys
 - [x] Number Validator Function
   - [x] Number Validator Function support Big Int
 - [x] Date Validator Function
 - [ ] Array Validator Function
   - [ ] Array Entry Validator Function
 - [ ] Pipeline System
-  - ~~[ ] Middleware Server Handler System~~ 
+  - [ ] Middleware Server Handler System
+    - [ ] Express Middleware
 - [ ] Map Validator Function
 - [ ] Set Validator Function
 - [ ] Use Error Callack System instead of return Boolean
 - [ ] Transform Data into a Valid Data Type expected instead of Boolean
+- [ ] Create configuration with OpenAPI file
 
 # Installation guide
 
@@ -110,7 +112,7 @@ const result = validator(obj);
 **Parameter** config [`EntryObjectValidatorConfig`](#EntryObjectValidatorConfig)
 | Properties | Type                                                 | Required | Description                                                         |
 |------------|------------------------------------------------------|----------|---------------------------------------------------------------------|
-| key        | String \| Number \| Symbol                           | yes      | Target one key of object                                            |
+| key        | ObjectKeyType | ObjectKeyType[] | symbol             | yes      | Target one key of object                                            |
 | Required   | Boolean                                              |  | If key is required on object                                                |
 | dataType   | [`DataType`](#DataType) \| [`DataType`](#DataType)[] |  | Check target value type                                                     |
 | validator  | [`ValidatorFn`](#ValidatorFn)                        |  | Apply Validator function                                                    |
@@ -162,7 +164,13 @@ dataTypeChecker(str, "string");
 
 **Return** [`NumberValidatorFn`](#NumberValidatorFn)
 
-### `dateValidatorFunction(config)`
+```js
+const num = 5;
+const validator = numberValidator({ equAt: num });
+validator(str);
+```
+
+### `dateValidator(config)`
 
 **Parameter** config [`DateValidatorConfig`](#DateValidatorConfig)
 | Properties         | Type                 | Required | Description     |
@@ -173,6 +181,12 @@ dataTypeChecker(str, "string");
 | maxAt              | Date \| Number       |  | Maximum to date         |
 
 **Return** [`DateValidatorFn`](#DateValidatorFn)
+
+```js
+const date = new Date('2023-06-04T02:23:08.719Z');
+const validator = dateValidator({ equAt: date });
+validator(str);
+```
 
 ## Objects
 
@@ -195,7 +209,7 @@ stringValidator({
 ### `DataType`
 
 **Type** [String] - `string` | `number` | `array` | `object` | `bigint`|
-`function`| `symbol`| `undefined` | `date`| `null`| `boolean`
+`function`| `symbol`| `undefined` | `date`| `null`| `boolean` | `regex`
 
 ### `StringValidatorFn`
 
@@ -222,6 +236,9 @@ stringValidator({
 **Type** [Function] - [`StringValidatorFn`](#StringValidatorConfig) |
 [`ObjectValidatorConfig`](#ObjectValidatorConfig) | [`NumberValidatorFn`](#NumberValidatorFn) | [`DateValidatorFn`](#DateValidatorFn)
 
+### `ObjectKeyType`
+**Type** [Object] - `string` | `number` | `symbol`
+
 ### `ObjectValidatorConfig`
 
 **Type** [Object]
@@ -238,7 +255,7 @@ stringValidator({
 **Type** [Object]
 | Property   | Type                                                 | Required | Description                                                         |
 |------------|------------------------------------------------------|----------|---------------------------------------------------------------------|
-| key        | String \| Number \| Symbol                           | yes      | Target one key of object                                            |
+| key        | ObjectKeyType | ObjectKeyType[] | regex              | yes      | Target one key of object                                            |
 | Required   | Boolean                                              |  | If key is required on object                                                |
 | dataType   | [`DataType`](#DataType) \| [`DataType`](#DataType)[] |  | Check target value type                                                     |
 | validator  | [`ValidatorFn`](#ValidatorFn)                        |  | Apply Validator function                                                    |
@@ -386,7 +403,29 @@ const validator = objectValidator({
   }],
 });
 
-validator(true);
+validator(obj)
+```
+
+### Multiple keys selector on entry validator function
+
+```js
+const { entryObjectValidator } = require("tychecker");
+
+const obj = {
+  hello: 'world',
+  foo: "bar",
+};
+
+const validator = entryObjectValidator({
+  entries: [
+    entryObjectValidator({
+      key: ['hello', 'foo'],
+      dataType: 'string'
+    }),
+  ]
+});
+
+validator(obj);
 ```
 
 # Credit

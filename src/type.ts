@@ -1,4 +1,4 @@
-export type DataType = 'string' | 'number' | 'array' | 'object' | 'bigint' | 'function' | 'symbol' | 'undefined' | 'date' | 'null' | 'boolean';
+export type DataType = 'string' | 'number' | 'array' | 'object' | 'bigint' | 'function' | 'symbol' | 'undefined' | 'date' | 'null' | 'boolean' | 'regex';
 
 export type StringValidatorFn = (str: string) => boolean;
 export type ObjectValidatorFn = (obj: any) => boolean;
@@ -16,8 +16,10 @@ export interface ObjectValidatorConfig {
     equKeys?: number;
 }
 
+export type ObjectKeyType = string | number | symbol;
+
 export interface EntryObjectValidatorConfig {
-    key: string;
+    key: ObjectKeyType | ObjectKeyType[] | RegExp;
     required?: boolean;
     dataType?: DataType | DataType[];
     validator?: EntryObjectInstanceValidatorFn;
