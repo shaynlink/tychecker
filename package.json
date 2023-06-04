@@ -1,15 +1,15 @@
 {
   "name": "tychecker",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Check data type",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "files": [
     "/dist",
     "/lib"
   ],
   "scripts": {
-    "prepare": "node ./lib/prepare.js",
+    "prepare": "node ./dist/lib/prepare.js",
     "test": "./node_modules/.bin/jest --verbose",
     "build": "./node_modules/.bin/tsc"
   },
