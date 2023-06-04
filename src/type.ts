@@ -1,4 +1,4 @@
-export type DataType = 'string' | 'number' | 'array' | 'object' | 'bigint' | 'function' | 'symbol' | 'undefined' | 'date' | 'null' | 'boolean';
+export type DataType = 'string' | 'number' | 'array' | 'object' | 'bigint' | 'function' | 'symbol' | 'undefined' | 'date' | 'null' | 'boolean' | 'regex';
 
 export type StringValidatorFn = (str: string) => boolean;
 export type ObjectValidatorFn = (obj: any) => boolean;
