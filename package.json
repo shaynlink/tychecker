@@ -1,6 +1,6 @@
 {
   "name": "tychecker",
-  "version": "0.6.0",
+  "version": "0.6.2",
   "description": "Check data type",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "test": "./node_modules/.bin/jest --verbose",
-    "build": "./node_modules/.bin/tsc"
+    "build": "./node_modules/.bin/tsc",
+    "prepare": "npm run build"
   },
   "author": "shaynlink (github.com/shaynlink)",
   "license": "MIT",
