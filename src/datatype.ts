@@ -15,29 +15,19 @@ export function dataTypeChecker(data: any, types: DataType | DataType[]): boolea
             case 'symbol':
             case 'number':
             case 'undefined':
-                var result = typeof data === type;
-                if (result) return true;
-                break;
+                return typeof data === type;
             case 'array':
-                var result = Array.isArray(data);
-                if (result) return true;
-                break;
+                return Array.isArray(data);
             case 'boolean':
-                var result = data === true || data === false;
-                if (result) return true;
-                break;
+                return data === true || data === false;
             case 'date':
-                var result = data instanceof Date || new Date(data).toString() != 'Invalid Date';
-                if (result) return true;
-                break;
+                return data instanceof Date || new Date(data).toString() !== 'Invalid Date';
             case 'null':
-                var result = data === null;
-                if (result) return true;
-                break;
+                return data === null;
             case 'object':
-                var result = typeof data === 'object' && data.toString() == '[object Object]';
-                if (result) return true;
-                break;
+                return typeof data === 'object' && data.toString() === '[object Object]';
+            case 'regex':
+                return typeof data === 'object' && Object.prototype.toString.call(data) === '[object RegExp]';
             default:
                 continue;
         }

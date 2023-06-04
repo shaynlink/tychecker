@@ -147,3 +147,38 @@ describe('Object Validator Misc Test', () => {
         expect(validator(pseudoRandomObject(1))).toBeFalsy();
     });
 });
+
+describe('Entry Validator Misc Test', () => {
+    const obj: {hello: string, foo: string} = {
+        hello: 'world!',
+        foo: 'bar'
+    }
+
+    it('Array keys Pass', () => {
+        const validator = objectValidator({
+            entries: [
+                entryObjectValidator({
+                    key: ['hello', 'foo'],
+                    dataType: 'string',
+                    required: true
+                })
+            ]
+        });
+
+        expect(validator(obj)).toBeTruthy();
+    });
+
+    it('Regex keys Pass', () => {
+        const validator = objectValidator({
+            entries: [
+                entryObjectValidator({
+                    key: /o/g,
+                    dataType: 'string',
+                    required: true
+                })
+            ]
+        });
+
+        expect(validator(obj)).toBeTruthy();
+    });
+});
