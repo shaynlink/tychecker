@@ -4,6 +4,7 @@ import type {
     EntryObjectInstance,
     EntryObjectValidatorConfig,
     ObjectValidatorFn,
+    ObjectKeyType,
 } from "../type";
 
 export function objectValidator(validatorConfig: ObjectValidatorConfig): ObjectValidatorFn {
@@ -57,37 +58,53 @@ export function entryObjectValidator(validatorConfig: EntryObjectValidatorConfig
     return {
         _tyInstance: true,
         validator(obj: any): boolean {
-            if (validatorConfig?.required) {
-                if (!(validatorConfig.key in obj)) {
-                    return false;
-                }
+            const keys: ObjectKeyType[] = [];
+
+            if (dataTypeChecker(validatorConfig.key, ['string', 'number', 'symbol'])) {
+                keys.push(validatorConfig.key as ObjectKeyType);
+            } else if (dataTypeChecker(validatorConfig.key, 'array')) {
+                keys.push(...validatorConfig.key as ObjectKeyType[])
+            } else if (dataTypeChecker(validatorConfig.key, 'regex')) {
+                keys.push(...Object.keys(obj).filter((key) => (validatorConfig.key as RegExp).test(key)));
+            } else {
+                return false;
             }
 
-            if (!(validatorConfig.key in obj)) {
+            return keys.some((key) => {
+                if (validatorConfig?.required) {
+                    if (!(key in obj)) {
+                        return false;
+                    }
+                }
+    
+                // Return true, if key not exist on object
+                // because is not required.
+                if (!(key in obj)) {
+                    return true;
+                }
+    
+                if ('dataType' in validatorConfig) {
+                    if (Array.isArray(validatorConfig.dataType)) {
+                        const result = validatorConfig.dataType.some((dataType) => dataTypeChecker(obj[key], dataType));
+                        if (!result) return false;
+                    } else {
+                        const result = dataTypeChecker(obj[key], validatorConfig.dataType);
+                        if (!result) return false;
+                    }
+                }
+    
+                if ('validator' in validatorConfig) {
+                    const result = validatorConfig.validator(obj[key]);
+                    if (!result) return false;
+                }
+    
+                if ('validators' in validatorConfig) {
+                    const result = validatorConfig.validators.some((fnValidator) => fnValidator(obj[key]));
+                    if (!result) return false;
+                }
+    
                 return true;
-            }
-
-            if ('dataType' in validatorConfig) {
-                if (Array.isArray(validatorConfig.dataType)) {
-                    const result = validatorConfig.dataType.some((dataType) => dataTypeChecker(obj[validatorConfig.key], dataType));
-                    if (!result) return false;
-                } else {
-                    const result = dataTypeChecker(obj[validatorConfig.key], validatorConfig.dataType);
-                    if (!result) return false;
-                }
-            }
-
-            if ('validator' in validatorConfig) {
-                const result = validatorConfig.validator(obj[validatorConfig.key]);
-                if (!result) return false;
-            }
-
-            if ('validators' in validatorConfig) {
-                const result = validatorConfig.validators.some((fnValidator) => fnValidator(obj[validatorConfig.key]));
-                if (!result) return false;
-            }
-
-            return true;
+            });
         }
     }
 }

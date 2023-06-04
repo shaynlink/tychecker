@@ -16,8 +16,10 @@ export interface ObjectValidatorConfig {
     equKeys?: number;
 }
 
+export type ObjectKeyType = string | number | symbol;
+
 export interface EntryObjectValidatorConfig {
-    key: string;
+    key: ObjectKeyType | ObjectKeyType[] | RegExp;
     required?: boolean;
     dataType?: DataType | DataType[];
     validator?: EntryObjectInstanceValidatorFn;
