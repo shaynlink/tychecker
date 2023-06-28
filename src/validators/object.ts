@@ -5,30 +5,18 @@ import type {
     ObjectValidatorFn,
     ObjectKeyType,
     ObjectValidatorConfig,
-    PipelineObject,
-    InsertStateFn
+    PipelineObject
 } from '../types';
-
-const initiateState = (refPipeline: PipelineObject[]): InsertStateFn => (pass: boolean, test: string, config: any, origin: any, key?: string) => {
-    refPipeline.push({
-        pass,
-        test,
-        config,
-        origin,
-        key
-    });
-
-    return refPipeline;
-}
+import { initiateState } from '../utils';
 
 export function objectValidator(validatorConfig: ObjectValidatorConfig): ObjectValidatorFn {
-    const pipeline: PipelineObject[] = [];
-    const usePipeline = !!validatorConfig?.usePipelineReturn;
-
-    const sprayInsertState = (pipes: PipelineObject[]) => { for (const pipe of pipes) pipeline.push(pipe) };  
-    const insertState = initiateState(pipeline);
-
     return (obj: any): PipelineObject[] | boolean => {
+        const pipeline: PipelineObject[] = [];
+        const usePipeline = !!validatorConfig?.usePipelineReturn;
+    
+        const sprayInsertState = (pipes: PipelineObject[]) => { for (const pipe of pipes) pipeline.push(pipe) };  
+        const insertState = initiateState(pipeline);
+
         const validType = dataTypeChecker(obj, 'object');
         if (!validType) return false;
         if (('allowEmptyObject' in validatorConfig) && !validatorConfig.allowEmptyObject) {

@@ -1,12 +1,14 @@
 import { dataTypeChecker } from '../datatype';
-import type { StringValidatorConfig, StringValidatorFn } from '../types';
+import type { PipelineObject, StringValidatorConfig, StringValidatorFn } from '../types';
 import { newRefRegex } from '../utils';
+import { initiateState } from '../utils';
 
-export function stringValidator(validatorConfig: StringValidatorConfig): StringValidatorFn {
-    
+export function stringValidator(validatorConfig: StringValidatorConfig, usePipelineReturn?: boolean): StringValidatorFn {
+    const pipeline: PipelineObject[] = [];
+    const insertState = initiateState(pipeline);
+
     return (str: string) => {
         const validType = dataTypeChecker(str, 'string');
-        if (!validType) return false;
 
         if ('equLength' in validatorConfig) {
             if (str.length !== validatorConfig.equLength) {
