@@ -1,5 +1,5 @@
-import { dataTypeChecker } from "../datatype";
-import type { DateValidatorConfig, DateValidatorFn } from "../type";
+import { dataTypeChecker } from '../datatype';
+import type { DateValidatorConfig, DateValidatorFn } from '../types';
 
 export function dateValidator(validatorConfig: DateValidatorConfig): DateValidatorFn {
     return (date: string | number | Date) => {

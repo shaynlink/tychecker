@@ -1,4 +1,8 @@
-import type { DataType } from "./type";
+import type { DataType } from "./types";
+
+function sourceToString(data: any): string {
+    return Object.prototype.toString.call(data);
+}
 
 export function dataTypeChecker(data: any, types: DataType | DataType[]): boolean {
     let potentialTypes = [];
@@ -25,11 +29,17 @@ export function dataTypeChecker(data: any, types: DataType | DataType[]): boolea
             case 'null':
                 return data === null;
             case 'object':
-                return typeof data === 'object' && data.toString() === '[object Object]';
+                return typeof data === 'object' && sourceToString(data) === '[object Object]';
             case 'regex':
-                return typeof data === 'object' && Object.prototype.toString.call(data) === '[object RegExp]';
+                return typeof data === 'object' && sourceToString(data) === '[object RegExp]';
+            case 'map':
+                return typeof data === 'object' && sourceToString(data) === '[object Map]';
+            case 'set':
+                return typeof data === 'object' && sourceToString(data) === '[object Set]';
+            case 'weakmap':
+                return typeof data === 'object' && sourceToString(data) === '[object WeakMap]';
             default:
-                continue;
+                return typeof data === 'object' && sourceToString(data) === type;
         }
     }
 

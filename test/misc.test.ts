@@ -11,9 +11,9 @@ describe('Object Validator Misc Test', () => {
                 entryObjectValidator({
                     key: 'hello',
                     dataType: 'string',
-                    validator: stringValidator({
+                    validators: [stringValidator({
                         equLength: obj.hello.length
-                    })
+                    })]
                 })
             ]
         });
@@ -27,12 +27,42 @@ describe('Object Validator Misc Test', () => {
                 entryObjectValidator({
                     key: 'hello',
                     dataType: 'string',
-                    validator: stringValidator({
+                    validators: [stringValidator({
                         equLength: obj.hello.length + 1
-                    }),
+                    })],
                 })
             ]
         });
+
+        expect(validator(obj)).toBeFalsy();
+    });
+
+    it('Custom Validator Pass', () => {
+        const validator = objectValidator({
+            entries: [
+                entryObjectValidator({
+                    key: 'hello',
+                    validators: [
+                        (entry) => typeof entry == 'string'
+                    ]
+                })
+            ]
+        })
+
+        expect(validator(obj)).toBeTruthy();
+    });
+
+    it('Custom Validator Fail', () => {
+        const validator = objectValidator({
+            entries: [
+                entryObjectValidator({
+                    key: 'hello',
+                    validators: [
+                        (entry) => typeof entry == 'number'
+                    ]
+                })
+            ]
+        })
 
         expect(validator(obj)).toBeFalsy();
     });
@@ -44,7 +74,7 @@ describe('Object Validator Misc Test', () => {
                     key: 'hello',
                     dataType: 'string',
                     required: true,
-                    validator: stringValidator({ equLength: obj.hello.length })
+                    validators: [stringValidator({ equLength: obj.hello.length })]
                 }
             ]
         });
@@ -76,16 +106,16 @@ describe('Object Validator Misc Test', () => {
             entries: [
                 entryObjectValidator({
                     key: 'foo',
-                    validator: objectValidator({
+                    validators: [objectValidator({
                         entries: [
                             entryObjectValidator({
                                 key: 'result',
-                                validator: stringValidator({
+                                validators: [stringValidator({
                                     equLength: deepObject.foo.result.length
-                                })
+                                })]
                             })
                         ]
-                    })
+                    })]
                 })
             ]
         });
@@ -98,16 +128,18 @@ describe('Object Validator Misc Test', () => {
             entries: [
                 entryObjectValidator({
                     key: 'foo',
-                    validator: objectValidator({
-                        entries: [
-                            entryObjectValidator({
-                                key: 'result',
-                                validator: stringValidator({
-                                    equLength: deepObject.foo.result.length + 1
+                    validators: [
+                        objectValidator({
+                            entries: [
+                                entryObjectValidator({
+                                    key: 'result',
+                                    validators: [stringValidator({
+                                        equLength: deepObject.foo.result.length + 1
+                                    })]
                                 })
-                            })
-                        ]
-                    })
+                            ]
+                        })
+                    ]
                 })
             ]
         });
@@ -176,6 +208,22 @@ describe('Entry Validator Misc Test', () => {
                     dataType: 'string',
                     required: true
                 })
+            ]
+        });
+
+        expect(validator(obj)).toBeTruthy();
+    });
+
+    it('Return Pipeline', () => {
+        const validator = objectValidator({
+            usePipelineReturn: true,
+            entries: [
+                {
+                    key: 'hello',
+                    dataType: 'string',
+                    required: true,
+                    validators: [stringValidator({ equLength: obj.hello.length })]
+                }
             ]
         });
 

@@ -2,7 +2,7 @@
 /dist
 
 # Modules directory
-/node_modules
+node_modules/
 
 # File Saved by Mac
 .DS_Store

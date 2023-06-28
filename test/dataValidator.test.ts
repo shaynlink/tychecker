@@ -3,6 +3,7 @@ import {
     objectValidator,
     entryObjectValidator
 } from '../src';
+import { arrayValidator, entryArrayValidator } from '../src/validators/array';
 import { dateValidator } from '../src/validators/date';
 import { numberValidator } from '../src/validators/number';
 
@@ -92,7 +93,7 @@ describe('Object validator', () => {
             allowEmptyObject: true
         });
 
-        expect(validator(obj)).toBeTruthy();
+        expect(validator({})).toBeTruthy();
     });
 
     it('Allow Empty Object Fail', () => {
@@ -150,14 +151,6 @@ describe('Object validator', () => {
 
         expect(validator(obj)).toBeFalsy();
     });
-
-    // it('Multi keys PASS', () => {
-    //     const validator = objectValidator({
-    //         entries: {
-    //             key
-    //         }
-    //     })
-    // })
 });
 
 describe('Entries of Object validator', () => {
@@ -472,4 +465,128 @@ describe('Date validator', () => {
 
         expect(validator(date)).toBeFalsy();
     });
-})  
+})
+
+describe('Array validator', () => {
+    const arr: string[] = ['foo', 'bar']
+
+    it('Allow Empty Array Pass', () => {
+        const validator = arrayValidator({
+            allowEmpty: true
+        });
+
+        expect(validator([])).toBeTruthy();
+    });
+
+    it('Allow Empty Array Fail', () => {
+        const validator = arrayValidator({
+            allowEmpty: false
+        });
+
+        expect(validator([])).toBeFalsy();
+    });
+
+    it('Maximum Items Pass', () => {
+        const validator = arrayValidator({
+            maxItems: arr.length
+        });
+
+        expect(validator(arr)).toBeTruthy();
+    });
+
+    it('Maximum Items Fail', () => {
+        const validator = arrayValidator({
+            maxItems: arr.length - 1
+        })
+
+        expect(validator(arr)).toBeFalsy();
+    });
+
+    it('Minimum Items Pass', () => {
+        const validator = arrayValidator({
+            minItems: arr.length
+        });
+
+        expect(validator(arr)).toBeTruthy();
+    });
+
+    it('Minimum Items Fail', () => {
+        const validator = arrayValidator({
+            minItems: arr.length + 1
+        })
+
+        expect(validator(arr)).toBeFalsy();
+    });
+
+    it('Equal Items Pass', () => {
+        const validator = arrayValidator({
+            equItems: arr.length
+        });
+
+        expect(validator(arr)).toBeTruthy();
+    });
+
+    it('Equal Items Fail', () => {
+        const validator = arrayValidator({
+            equItems: arr.length + 1
+        })
+
+        expect(validator(arr)).toBeFalsy();
+    });
+});
+
+describe('Entries of Array validator', () => {
+    const arr: string[] = ['foo', 'bar'];
+
+    it('Data Type Pass', () => {
+        const validator = arrayValidator({
+            entries: [
+                entryArrayValidator({
+                    dataType: 'string'
+                })
+            ]
+        });
+
+        expect(validator(arr)).toBeTruthy()
+    });
+
+    it('Data Type Fail', () => {
+        const validator = arrayValidator({
+            entries: [
+                entryArrayValidator({
+                    dataType: 'number',
+                })
+            ]
+        });
+        
+        expect(validator(arr)).toBeFalsy();
+    });
+
+    it('Validator Pass', () => {
+        const validator = arrayValidator({
+            entries: [
+                entryArrayValidator({
+                    validator: stringValidator({
+                        regex: /foo|bar/gi,
+                    })
+                })
+            ]
+        })
+
+        expect(validator(arr)).toBeTruthy();
+    });
+
+    it('Validator Fail', () => {
+        const validator = arrayValidator({
+            entries: [
+                entryArrayValidator({
+                    validator: stringValidator({
+                        regex: /random/gi,
+                    })
+                })
+            ]
+        })
+
+        expect(validator(arr)).toBeFalsy();
+    });
+})

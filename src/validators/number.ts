@@ -1,5 +1,5 @@
-import { dataTypeChecker } from "../datatype";
-import type { NumberValidatorConfig, NumberValidatorFn } from "../type";
+import { dataTypeChecker } from '../datatype';
+import type { NumberValidatorConfig, NumberValidatorFn } from '../types';
 
 export function numberValidator(validatorConfig: NumberValidatorConfig): NumberValidatorFn {
     return (num: string | number | bigint) => {

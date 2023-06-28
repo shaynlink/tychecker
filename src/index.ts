@@ -4,4 +4,5 @@ export * from './validators/number';
 export * from './validators/date';
 export * from './datatype';
 export * from './regex';
-export * from './type';
+export * from './utils';
+export * from './dictionary';

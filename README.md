@@ -13,15 +13,9 @@
 - [x] Number Validator Function
   - [x] Number Validator Function support Big Int
 - [x] Date Validator Function
-- [ ] Array Validator Function
-  - [ ] Array Entry Validator Function
-- [ ] Pipeline System
-  - [ ] Middleware Server Handler System
-    - [ ] Express Middleware
-- [ ] Map Validator Function
-- [ ] Set Validator Function
-- [ ] Use Error Callack System instead of return Boolean
-- [ ] Transform Data into a Valid Data Type expected instead of Boolean
+- [x] Array Validator Function
+  - [x] Array Entry Validator Function
+- [-] Pipeline System
 - [ ] Create configuration with OpenAPI file
 
 # Installation guide
