@@ -1,5 +1,7 @@
 # tychecker - a type checker
 
+> ⚠️ This package is no longer supported, please choose another one, or keep this package for a codebase and not for a production-ready package
+
 > ⚠️ tycheck is still in development, originally created for shortlnk project, it
 > evolve for the moment at the same time as shortlnk. But its development is to
 > think for a general use and integrable by other projects.
